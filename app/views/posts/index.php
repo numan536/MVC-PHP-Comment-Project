@@ -34,14 +34,30 @@ if(isLoggedIn()): ?>
     </div>
 <?php endforeach; ?>
 
-<?php
-    foreach($data['comments'] as $comment):?>
-        <p>
-            <?php echo $comment->comment; ?>
-        </p>
-        <div>
+
+<div class="container">
+
+<?php foreach($data["comment"] as $com):?>
+    <div>
+        <h2>
+            <?php echo $com->comment; 
+            ?>
+        </h2>
+    </div>
 <?php endforeach; ?>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <style>

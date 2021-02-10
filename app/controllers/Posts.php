@@ -10,7 +10,8 @@ class Posts extends Controller
     {
         $posts = $this->postModel->findAllPosts();
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'comment' => $this->allcomments()
         ];
         $this->view('posts/index', $data);
     }
@@ -36,6 +37,16 @@ class Posts extends Controller
             }
         }
         $this->view("posts/create", $data);
+    }
+
+    public function getSinglePost($id)
+    {
+        $posts = $this->postModel->singlePost($id);
+        $data = [
+            'posts' => $posts,
+            // 'comments'=> $comments
+        ];
+        $this->view('posts/index', $data);
     }
 
     public function update($id)
@@ -111,7 +122,6 @@ class Posts extends Controller
                 "post_id"=> 4,
                 "comment" => trim($_POST['reply_text'])
             ];
-            print_r($data);
             if ($this->postModel->addComment($data)) {
                 header("Location: " . URLROOT . "/posts");
             }
@@ -121,11 +131,8 @@ class Posts extends Controller
     public function allcomments()
     {
         // print("aallcomment");
-        $comments = $this->postModel->allcomments();
-        $data = [
-            'comments' => $comments
-        ];
-        $this->view('posts/index', $data);
+        $comments = $this->postModel->allcomment();
+        return $comments;      
     }
 }
 

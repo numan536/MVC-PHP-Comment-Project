@@ -89,16 +89,27 @@ class Post {
     }
 
 
-    public function allcomments()
+    public function allcomment()
     {
         $this->db->query('SELECT * FROM comments');
         $results = $this->db->resultSet();
         return $results;
     }
 
-    public function addComment($data)
-    {        print_r("adioahsdoia");
 
+    public function singleComment($id)
+    {
+        $this->db->query('SELECT * FROM posts WHERE id = :id');
+
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function addComment($data)
+    {       
         $this->db->query('INSERT INTO comments (post_id, user_id, comment) VALUES (:post_id, :user_id, :comment)');
 
         $this->db->bind(':post_id', $data['post_id']);
