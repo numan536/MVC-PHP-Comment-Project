@@ -14,7 +14,7 @@
         <form action="<?php echo URLROOT . "/posts/delete" . "/" . $post->id ?>" method="POST">
           <input type="submit" name="delete" value="delete" class="btn red" />
         </form>
-        <form action="<?php echo URLROOT . "/posts/singlep" . "/" . $post->id ?>" method="POST">
+        <form action="<?php echo URLROOT . "/posts/single/" . $post->id ?>" method="POST">
           <input type="submit" name="view" value="View" class="btn red" />
         </form>
         

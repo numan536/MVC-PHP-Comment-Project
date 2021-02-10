@@ -39,15 +39,16 @@ class Posts extends Controller
         $this->view("posts/create", $data);
     }
 
-    public function singlep($id)
+    public function single($id)
     {
+        
         $sposts = $this->postModel->singlePost($id);
-        $pdata = [
+        
+        $data = [
             'post' => $sposts
             // 'comments'=> $comments
         ];
-        
-        $this->view('posts/single', $pdata);
+        $this->view('posts/single', $data);
         
     }
 
