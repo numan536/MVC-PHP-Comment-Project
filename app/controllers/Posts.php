@@ -33,20 +33,22 @@ class Posts extends Controller
                 "body" => trim($_POST['body'])
             ];
             if ($this->postModel->addPost($data)) {
-                // header("Location: " . URLROOT . "/posts");
+                header("Location: " . URLROOT . "/posts");
             }
         }
         $this->view("posts/create", $data);
     }
 
-    public function getSinglePost($id)
+    public function singlep($id)
     {
-        $posts = $this->postModel->singlePost($id);
-        $data = [
-            'posts' => $posts,
+        $sposts = $this->postModel->singlePost($id);
+        $pdata = [
+            'post' => $sposts
             // 'comments'=> $comments
         ];
-        $this->view('posts/index', $data);
+        
+        $this->view('posts/single', $pdata);
+        
     }
 
     public function update($id)
@@ -58,7 +60,8 @@ class Posts extends Controller
                 "title"=> '',
                 "body"=> '',
             ];
-        $this->view('/view/update', $data);
+        $this->view('posts/update', $data);
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $data=[
@@ -78,27 +81,8 @@ class Posts extends Controller
 
     public function delete($id)
     {
-        $post = $this->postModel->findPostById($id);
-
-            $data=[
-            'posts'=> $post,
-            "title"=> '',
-            "body"=> '',
-            ];
-        $this->view('/view/delete', $data);
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data=[
-                "user_id"=> $_SESSION['user_id'],
-                "title"=> trim($_POST['title']),
-                "body" => trim($_POST['body'])
-                ];
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                if ($this->postModel->deletePost($id)) {
-                    header("Location: " . URLROOT . "/posts");
-                }
-            }
+        if ($this->postModel->deletePost($id)) {
+            header("Location: " . URLROOT . "/posts");
         }
         
     }
